@@ -11,7 +11,7 @@ import in.app.dharm.info.online.dharmadmin.R;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    RelativeLayout rlAllOrder, rlAllUsers, rlAllDeal, rlAllFeedback;
+    RelativeLayout rlAllOrder, rlAllUsers, rlAllDeal, rlAllFeedback, rlAllSaleProduct;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         rlAllUsers = findViewById(R.id.rlAllUser);
         rlAllFeedback = findViewById(R.id.rlAllFeedback);
         rlAllOrder = findViewById(R.id.rlAllOrder);
+        rlAllSaleProduct = findViewById(R.id.rlAllSaleProduct);
 
         onClickListener();
     }
@@ -35,11 +36,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         rlAllFeedback.setOnClickListener(this);
         rlAllUsers.setOnClickListener(this);
         rlAllDeal.setOnClickListener(this);
+        rlAllSaleProduct.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
 
             case R.id.rlAllOrder:
                 startActivity(new Intent(MainActivity.this, ShowAllOrdersActivity.class));
@@ -55,6 +57,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.rlAllFeedback:
                 startActivity(new Intent(MainActivity.this, ShowAllFeedbackActivity.class));
+                break;
+
+            case R.id.rlAllSaleProduct:
+                startActivity(new Intent(MainActivity.this, AddNewSaleProductActivity.class));
                 break;
 
             default:

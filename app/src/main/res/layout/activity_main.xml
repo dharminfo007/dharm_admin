@@ -123,4 +123,33 @@
             />
     </RelativeLayout>
 
+    <RelativeLayout
+        android:id="@+id/rlAllSaleProduct"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/et_bg"
+        android:padding="10dp"
+        android:layout_marginVertical="5dp"
+        android:layout_marginHorizontal="5dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add New Sale Product"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:layout_centerInParent="true"
+            android:layout_alignParentLeft="true"
+            />
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"
+            android:layout_alignParentTop="true"
+            android:scaleType="fitXY"
+            android:layout_margin="5dp"
+            android:src="@drawable/next_icon"
+            />
+    </RelativeLayout>
+
 </LinearLayout>

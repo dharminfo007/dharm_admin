@@ -19,8 +19,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textview.MaterialTextView;
+import com.google.firebase.database.annotations.NotNull;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -73,11 +76,9 @@ public class ShowAllOrdersActivity extends AppCompatActivity implements View.OnC
         tvAllProductsTitle = findViewById(R.id.tvAllProductsTitle);
         etSearch = findViewById(R.id.etSearch);
         rvProductsFilter = (RecyclerView) findViewById(R.id.rvProductsFilter);
-//        imgBack = findViewById(R.id.imgBack);
         txtNoDataFound = findViewById(R.id.txtNoDataMatch);
         tvAllProductsTitle.setText("ALL PRODUCTS");
         rvProducts.setHasFixedSize(true);
-//        GridLayoutManager layoutManager = new GridLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
         rvProducts.setLayoutManager(layoutManager);
         listAdapter = new ProductAdapter(productArrayList, this);
@@ -106,7 +107,7 @@ public class ShowAllOrdersActivity extends AppCompatActivity implements View.OnC
             public void afterTextChanged(Editable s) {
 
                 // filter your list from your input
-                if(s.length() > 0){
+                if (s.length() > 0) {
 //                    filter(s.toString());
                 }
 
@@ -128,15 +129,10 @@ public class ShowAllOrdersActivity extends AppCompatActivity implements View.OnC
                             productArrayList = new ArrayList<>();
 
                             for (QueryDocumentSnapshot document : task.getResult()) {
-//                                ArrayList<Map<String, Product>> products = (ArrayList<Map<String, Product>>) document.get("products");
-//                                ArrayList<Product> arrayListProducts = document.toObject(OrderListPojo.class).productArrayList;
-
                                 Log.d(TAG, document.getId() + " => " + document.getData());
                                 OrderListPojo orderListPojo = new OrderListPojo(document.getId(), document.getString("order_total"),
-                                        document.getString("user"),
-                                        (ArrayList<HashMap<String, String>>)document.get("products"));
-
-
+                                        document.getString("user"),document.getString("order_accepted"),
+                                        (ArrayList<HashMap<String, String>>) document.get("products"));
                                 productArrayList.add(orderListPojo);
                             }
                             Log.d(TAG, " => " + productArrayList.size());
@@ -173,16 +169,50 @@ public class ShowAllOrdersActivity extends AppCompatActivity implements View.OnC
         }
     }
 
-/*    void filter(String text){
-        ArrayList<OrderListPojo> temp = new ArrayList();
-        for(OrderListPojo d: productArrayList){
-            //use .toLowerCase() for better matches
-            if(d.getName().toLowerCase().contains(text.toLowerCase())){
-                temp.add(d);
+    public void removeAt(int position, String document) {
+        db.collection("orderlist").document(document)
+                .delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+                productArrayList.remove(position);
+                listAdapter.notifyItemRemoved(position);
+                listAdapter.notifyItemRangeChanged(position, productArrayList.size());
+                checkOrderList();
             }
-        }
-        //update recyclerview
-        listAdapter.updateList(temp);
-    }*/
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
 
+            }
+        });
+
+    }
+
+    public void updateOrderStatus(int position, String document){
+
+        db.collection("orderlist").document(document).update("order_accepted", "true")
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        listAdapter.notifyDataSetChanged();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+
+            }
+        });
+
+    }
+
+    private void checkOrderList() {
+        if (productArrayList.size() > 0) {
+            txtNoDataFound.setVisibility(View.GONE);
+            rvProducts.setVisibility(View.VISIBLE);
+        } else {
+            txtNoDataFound.setText("No orders found");
+            txtNoDataFound.setVisibility(View.VISIBLE);
+            rvProducts.setVisibility(View.GONE);
+        }
+    }
 }

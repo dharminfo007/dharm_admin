@@ -27,13 +27,13 @@ import in.app.dharm.info.online.dharmadmin.util.DataProcessor;
 public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.ContactHolder> {
 
     // List to store all the contact details
-    public ArrayList<Product> productList;
+    public ArrayList<HashMap<String, String>> productList;
     private Context mContext;
     DataProcessor dataProcessor;
 
     // Counstructor for the Class
-    public ProductListAdapter(ArrayList<Product> contactsList, Context context) {
-        this.productList = contactsList;
+    public ProductListAdapter(ArrayList<HashMap<String, String>> productList, Context context) {
+        this.productList = productList;
         this.mContext = context;
     }
 
@@ -56,22 +56,15 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
     // This method is called when binding the data to the views being created in RecyclerView
     @Override
     public void onBindViewHolder(@NonNull ProductListAdapter.ContactHolder holder, final int position) {
-//        final Product product = productList.get(position);
+        final HashMap<String, String> product = productList.get(position);
 
-        HashMap<String, String> map = new HashMap<String, String>();
+        holder.tvProId.setText(product.get("name"));
+//        holder.tvOrderId.setText(ordersListPojo.getOrderId());
+        holder.tvQty.setText(product.get("qty"));
+        holder.tvUnit.setText(product.get("unit"));
+        holder.tvPrice.setText("₹ " +String.valueOf(Integer.parseInt(product.get("qty")) * Integer.parseInt(product.get("price"))));
 
-        //Getting Collection of values from HashMap
 
-        Collection<String> values = map.values();
-
-        //Creating an ArrayList of values
-
-        ArrayList<String> listOfValues = new ArrayList<String>(values);
-        // Set the data to the views here
-//        holder.setProductId(product.getId());
-//        holder.setProductQty(product.getQty());
-//        holder.setProductPrice("₹ " + product.getPrice());
-//        holder.setProductUnit( product.getUnit());
     }
 
     // This is your ViewHolder class that helps to populate data to the view

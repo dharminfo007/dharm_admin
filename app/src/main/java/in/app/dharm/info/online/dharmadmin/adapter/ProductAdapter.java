@@ -18,6 +18,7 @@ import java.util.Collection;
 import java.util.HashMap;
 
 import in.app.dharm.info.online.dharmadmin.R;
+import in.app.dharm.info.online.dharmadmin.activity.ShowAllOrdersActivity;
 import in.app.dharm.info.online.dharmadmin.model.OrderListPojo;
 import in.app.dharm.info.online.dharmadmin.model.ProductListPojo;
 import in.app.dharm.info.online.dharmadmin.util.DataProcessor;
@@ -57,37 +58,41 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ContactH
     public void onBindViewHolder(@NonNull ContactHolder holder, final int position) {
         final OrderListPojo product = productList.get(position);
 
-        // Set the data to the views here
-//        holder.setProductTitle(product.getUser());
-//        holder.setProductCartoon(product.getOrder_total());
-//        holder.setProductPrice("₹ " + product.getOrder_total());
         holder.tvUserName.setText(product.getUser());
         holder.tvOrderId.setText("Order id : "+product.getId());
 
-        ArrayList<HashMap<String, String>> productArrayList = product.getProductArrayList();
-/*        HashMap<String, String> map = new HashMap<String, String>();
-
-        //Getting Collection of values from HashMap
-        map = product.productArrayList;
-        Collection<String> values = map.values();
-
-        //Creating an ArrayList of values
-
-        ArrayList<String> listOfValues = new ArrayList<String>(values);*/
+        if(product.getOrder_status().equals("true")){
+            holder.tvCancelOrder.setClickable(false);
+            holder.tvCancelOrder.setEnabled(false);
+            holder.tvAcceptOrder.setClickable(false);
+            holder.tvAcceptOrder.setEnabled(false);
+        }else {
+            holder.tvCancelOrder.setClickable(true);
+            holder.tvCancelOrder.setEnabled(true);
+            holder.tvAcceptOrder.setClickable(true);
+            holder.tvAcceptOrder.setEnabled(true);
+        }
         holder.rvProductItems.setHasFixedSize(true);
-//        LinearLayoutManager layoutManager = new LinearLayoutManager(mContext, RecyclerView.VERTICAL, false);
-//        holder.rvProductItems.setLayoutManager(layoutManager);
-//        listAdapter = new ProductListAdapter(product.getProductArrayList(), mContext);
-//        holder.rvProductItems.setAdapter(listAdapter);
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
+        LinearLayoutManager layoutManager = new LinearLayoutManager(mContext, RecyclerView.VERTICAL, false);
+        holder.rvProductItems.setLayoutManager(layoutManager);
+        listAdapter = new ProductListAdapter(product.getProductArrayList(), mContext);
+        holder.rvProductItems.setAdapter(listAdapter);
+        holder.tvAcceptOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent i = new Intent(mContext, ProductDetailActivity.class);
-//                i.putExtra("id", product.getId());
-//                mContext.startActivity(i);
+                if (mContext instanceof ShowAllOrdersActivity) {
+                    ((ShowAllOrdersActivity) mContext).updateOrderStatus(position, product.getId());
+                }
             }
         });
-
+        holder.tvCancelOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mContext instanceof ShowAllOrdersActivity) {
+                    ((ShowAllOrdersActivity) mContext).removeAt(position, product.getId());
+                }
+            }
+        });
 
 //        holder.imgProduct.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -107,7 +112,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ContactH
     public class ContactHolder extends RecyclerView.ViewHolder {
 
 //        private TextView tvTitle, tvCartoon, tvStock, tvPrice, tvUserName, tvOrderId;
-        private TextView tvUserName, tvOrderId;
+        private TextView tvUserName, tvOrderId, tvAcceptOrder, tvCancelOrder;
 //        CardView cardProducts;
         ImageView imgProduct;
         RecyclerView rvProductItems;
@@ -123,6 +128,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ContactH
             imgProduct = itemView.findViewById(R.id.imgProduct);
             tvOrderId = itemView.findViewById(R.id.tvOrderId);
             rvProductItems = itemView.findViewById(R.id.rvProductItems);
+            tvAcceptOrder = itemView.findViewById(R.id.tvAcceptOrder);
+            tvCancelOrder = itemView.findViewById(R.id.tvCancelOrder);
 
         }
 
