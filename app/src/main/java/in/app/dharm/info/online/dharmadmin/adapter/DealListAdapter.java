@@ -1,6 +1,8 @@
 package in.app.dharm.info.online.dharmadmin.adapter;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 import in.app.dharm.info.online.dharmadmin.R;
+import in.app.dharm.info.online.dharmadmin.activity.ShowAllOrdersActivity;
+import in.app.dharm.info.online.dharmadmin.activity.ShowAllRequestedDealsActivity;
 import in.app.dharm.info.online.dharmadmin.model.DealListPojo;
 import in.app.dharm.info.online.dharmadmin.model.UserList;
 import in.app.dharm.info.online.dharmadmin.util.DataProcessor;
@@ -49,19 +53,51 @@ public class DealListAdapter extends RecyclerView.Adapter<DealListAdapter.Contac
     // This method is called when binding the data to the views being created in RecyclerView
     @Override
     public void onBindViewHolder(@NonNull DealListAdapter.ContactHolder holder, final int position) {
-        final DealListPojo user = userLists.get(position);
+        final DealListPojo deal = userLists.get(position);
 
-        holder.tvProId.setText(user.getpId());
-        holder.tvQty.setText(user.getCartoon()+" Cartoon");
-        holder.tvPrice.setText("₹ " +user.getDeal_amt());
-        holder.tvUnit.setText(user.getUser());
+        holder.tvProId.setText(deal.getpName());
+        holder.tvQty.setText(deal.getCartoon()+" Cartoon");
+        holder.tvPrice.setText("₹ " +deal.getDeal_amt());
+        holder.tvUnit.setText(deal.getUser());
+        holder.tvDealStatus.setText(deal.getStatus());
 
+        holder.tvAcceptDeal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((ShowAllRequestedDealsActivity) mContext).updateDealStatus(position, "DOD_"+deal.getUser()+"_"+deal.getpId());
+            }
+        });
+
+        holder.tvCancelDeal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mContext instanceof ShowAllRequestedDealsActivity) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+                    builder.setMessage("Are you sure you want to cancel deal?")
+                            .setCancelable(false)
+                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    ((ShowAllRequestedDealsActivity) mContext).removeAt(position,
+                                            "DOD_"+deal.getUser()+"_"+deal.getpId());
+                                }
+                            })
+                            .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    dialog.cancel();
+                                }
+                            });
+                    AlertDialog alert = builder.create();
+                    alert.show();
+
+                }
+            }
+        });
     }
 
     // This is your ViewHolder class that helps to populate data to the view
     public class ContactHolder extends RecyclerView.ViewHolder {
 
-        private TextView tvProId, tvQty, tvUnit, tvPrice;
+        private TextView tvProId, tvQty, tvUnit, tvPrice, tvDealStatus, tvCancelDeal, tvAcceptDeal;
 
         public ContactHolder(View itemView) {
             super(itemView);
@@ -70,6 +106,9 @@ public class DealListAdapter extends RecyclerView.Adapter<DealListAdapter.Contac
             tvQty = itemView.findViewById(R.id.tvQty);
             tvUnit = itemView.findViewById(R.id.tvUnit);
             tvPrice = itemView.findViewById(R.id.tvPrice);
+            tvDealStatus = itemView.findViewById(R.id.tvDealStatus);
+            tvCancelDeal = itemView.findViewById(R.id.tvCancelDeal);
+            tvAcceptDeal = itemView.findViewById(R.id.tvAcceptDeal);
 
         }
 

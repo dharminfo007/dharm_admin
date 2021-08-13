@@ -1,15 +1,18 @@
 package in.app.dharm.info.online.dharmadmin.model;
 
 public class DealListPojo {
-    String cartoon, deal_amt, deal_in_date, pId, status, user;
+    String cartoon, deal_amt, deal_in_date, pId, status, user, pName;
 
-    public DealListPojo(String cartoon, String deal_amt, String deal_in_date, String pId, String status, String user) {
+    public DealListPojo(String cartoon, String deal_amt, String deal_in_date, String pId,
+                        String status, String user, String pName) {
         this.cartoon = cartoon;
         this.deal_amt = deal_amt;
         this.deal_in_date = deal_in_date;
         this.pId = pId;
         this.status = status;
         this.user = user;
+        this.pName = pName;
+
     }
 
     public String getCartoon() {
@@ -58,5 +61,13 @@ public class DealListPojo {
 
     public void setUser(String user) {
         this.user = user;
+    }
+
+    public String getpName() {
+        return pName;
+    }
+
+    public void setpName(String pName) {
+        this.pName = pName;
     }
 }

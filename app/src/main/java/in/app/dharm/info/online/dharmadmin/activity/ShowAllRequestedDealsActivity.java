@@ -11,6 +11,8 @@ import android.util.Log;
 import android.view.View;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textview.MaterialTextView;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -78,7 +80,7 @@ public class ShowAllRequestedDealsActivity extends AppCompatActivity {
                                         document.getString("cartoon"),
                                         document.getString("deal_amount"), document.getString("deal_in_date"),
                                         document.getString("product_id"), document.getString("status"),
-                                        document.getString("user"));
+                                        document.getString("user"), document.getString("product_name"));
 
                                 productArrayList.add(orderListPojo);
                             }
@@ -102,4 +104,54 @@ public class ShowAllRequestedDealsActivity extends AppCompatActivity {
                     }
                 });
     }
+    public void removeAt(int position, String document) {
+        db.collection("deallist").document(document)
+                .delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+                productArrayList.remove(position);
+                listAdapter.notifyItemRemoved(position);
+                listAdapter.notifyItemRangeChanged(position, productArrayList.size());
+                checkDealList();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+
+            }
+        });
+
+    }
+    public void updateDealStatus(int position, String document){
+
+        db.collection("deallist").document(document).update("status", "accepted")
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        listAdapter.notifyItemChanged(position);
+                        listAdapter.notifyDataSetChanged();
+                        listAdapter.notifyItemChanged(position);
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+
+            }
+        });
+
+    }
+    private void checkDealList() {
+        if (productArrayList.size() > 0) {
+            txtNoDataFound.setVisibility(View.GONE);
+            rvProducts.setVisibility(View.VISIBLE);
+            listAdapter = new DealListAdapter(productArrayList, ShowAllRequestedDealsActivity.this);
+            rvProducts.setAdapter(listAdapter);
+            listAdapter.notifyDataSetChanged();
+        } else {
+            txtNoDataFound.setVisibility(View.VISIBLE);
+            rvProducts.setVisibility(View.GONE);
+            listAdapter.notifyDataSetChanged();
+        }
+    }
+
 }
