@@ -29,12 +29,11 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:gravity="center">
-
             <com.google.android.material.textview.MaterialTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingVertical="15dp"
-                android:text="Add images : "
+                android:text="Add video : "
                 android:textColor="@color/black"
                 android:textSize="15sp"
                 android:textStyle="normal"

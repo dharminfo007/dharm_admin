@@ -7,26 +7,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
+import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import java.util.ArrayList;
-
 import in.app.dharm.info.online.dharmadmin.R;
-import in.app.dharm.info.online.dharmadmin.activity.ShowAllOrdersActivity;
 import in.app.dharm.info.online.dharmadmin.activity.ShowAllRequestedDealsActivity;
 import in.app.dharm.info.online.dharmadmin.model.DealListPojo;
-import in.app.dharm.info.online.dharmadmin.model.UserList;
-import in.app.dharm.info.online.dharmadmin.util.DataProcessor;
 
 public class DealListAdapter extends RecyclerView.Adapter<DealListAdapter.ContactHolder> {
 
     // List to store all the contact details
     public ArrayList<DealListPojo> userLists;
     private Context mContext;
-    DataProcessor dataProcessor;
-    ProductListAdapter listAdapter;
 
     // Counstructor for the Class
     public DealListAdapter(ArrayList<DealListPojo> userLists, Context context) {
@@ -39,7 +32,6 @@ public class DealListAdapter extends RecyclerView.Adapter<DealListAdapter.Contac
     @Override
     public DealListAdapter.ContactHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-
         // Inflate the layout view you have created for the list rows here
         View view = layoutInflater.inflate(R.layout.item_deal_list, parent, false);
         return new DealListAdapter.ContactHolder(view);
@@ -61,10 +53,19 @@ public class DealListAdapter extends RecyclerView.Adapter<DealListAdapter.Contac
         holder.tvUnit.setText(deal.getUser());
         holder.tvDealStatus.setText(deal.getStatus());
 
+        if(deal.getStatus().equals("accepted")){
+            holder.tvCancelDeal.setVisibility(View.GONE);
+        }else {
+            holder.tvCancelDeal.setVisibility(View.VISIBLE);        }
+
         holder.tvAcceptDeal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((ShowAllRequestedDealsActivity) mContext).updateDealStatus(position, "DOD_"+deal.getUser()+"_"+deal.getpId());
+                if(!deal.getStatus().equals("accepted")){
+                    ((ShowAllRequestedDealsActivity) mContext).updateDealStatus(position, "DOD_"+deal.getUser()+"_"+deal.getpId());
+                }else {
+                    Toast.makeText(mContext, "Deal already accepted!", Toast.LENGTH_LONG).show();
+                }
             }
         });
 

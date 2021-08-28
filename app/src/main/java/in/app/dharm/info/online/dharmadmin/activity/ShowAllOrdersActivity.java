@@ -42,21 +42,17 @@ import in.app.dharm.info.online.dharmadmin.util.DataProcessor;
 
 public class ShowAllOrdersActivity extends AppCompatActivity implements View.OnClickListener {
 
-    RecyclerView rvProducts, rvProductsFilter;
+    RecyclerView rvProducts;
     private ProductAdapter listAdapter;
     ArrayList<OrderListPojo> productArrayList;
     ArrayList<String> filterListPojoArrayList;
-    //    ImageView imgBack;
     FirebaseFirestore db;
     public String TAG = "ShowAllOrdersActivity";
     ProgressDialog pd;
     MaterialTextView txtNoDataFound;
-    EditText etSearch;
     ArrayList<String> images = new ArrayList<>();
-    ImageView imgCart;
     TextView tvAllProductsTitle;
     DataProcessor dataProcessor;
-    ProductListPojo productListPojo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,24 +69,19 @@ public class ShowAllOrdersActivity extends AppCompatActivity implements View.OnC
         images = new ArrayList<>();
         filterListPojoArrayList = new ArrayList<>();
         rvProducts = (RecyclerView) findViewById(R.id.rvProducts);
-        tvAllProductsTitle = findViewById(R.id.tvAllProductsTitle);
-        etSearch = findViewById(R.id.etSearch);
-        rvProductsFilter = (RecyclerView) findViewById(R.id.rvProductsFilter);
         txtNoDataFound = findViewById(R.id.txtNoDataMatch);
-        tvAllProductsTitle.setText("ALL PRODUCTS");
         rvProducts.setHasFixedSize(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
         rvProducts.setLayoutManager(layoutManager);
         listAdapter = new ProductAdapter(productArrayList, this);
         rvProducts.setAdapter(listAdapter);
 
-        onClickListenersInit();
         initProductDataAvailability();
         findProducts();
     }
 
     private void findProducts() {
-        etSearch.addTextChangedListener(new TextWatcher() {
+/*        etSearch.addTextChangedListener(new TextWatcher() {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
@@ -113,7 +104,7 @@ public class ShowAllOrdersActivity extends AppCompatActivity implements View.OnC
 
                 //you can use runnable postDelayed like 500 ms to delay search text
             }
-        });
+        });*/
     }
 
 
@@ -154,11 +145,6 @@ public class ShowAllOrdersActivity extends AppCompatActivity implements View.OnC
                         }
                     }
                 });
-    }
-
-    private void onClickListenersInit() {
-//        imgBack.setOnClickListener(this);
-        tvAllProductsTitle.setOnClickListener(this);
     }
 
     @Override

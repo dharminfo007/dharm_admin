@@ -10,193 +10,192 @@
 
     <ImageView
         android:id="@+id/imgLogo"
-        android:layout_marginTop="10dp"
-        android:layout_centerHorizontal="true"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:src="@drawable/dharm_app_icon"/>
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/dharm_app_icon" />
 
 
     <ScrollView
         android:id="@+id/svInputs"
-        android:layout_below="@+id/imgLogo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    <LinearLayout
-        android:layout_centerInParent="true"
-        android:visibility="visible"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center">
+        android:layout_below="@+id/imgLogo">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/text_input_layout_id"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Add product id"
-            android:layout_marginHorizontal="10dp"
-            android:layout_marginVertical="10dp">
-
-            <EditText
-                android:id="@+id/etProductId"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="number"
-                />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/text_input_layout_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Add product name"
-            android:layout_marginHorizontal="10dp"
-            android:layout_marginVertical="10dp">
-
-            <EditText
-                android:id="@+id/etProductName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="text"
-                />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/text_input_layout_description"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Add product description"
-            android:layout_marginHorizontal="10dp"
-            android:layout_marginVertical="10dp">
-
-            <EditText
-                android:id="@+id/etProductDesc"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textMultiLine"
-                android:overScrollMode="always"
-                android:scrollbarStyle="insideInset"
-                android:scrollbars="vertical"
-                android:text=""
-                />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/text_input_layout_stock"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Add product available stock"
-            android:layout_marginHorizontal="10dp"
-            android:layout_marginVertical="10dp">
-
-            <EditText
-                android:id="@+id/etProductStock"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="number"
-                />
-
-        </com.google.android.material.textfield.TextInputLayout>
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/text_input_layout_price"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Add product price"
-            android:layout_marginHorizontal="10dp"
-            android:layout_marginVertical="10dp">
-
-            <EditText
-                android:id="@+id/etPrice"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="number" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-  <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/text_input_layout_cartoon"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Add Pieces per cartoon"
-            android:layout_marginHorizontal="10dp"
-            android:layout_marginVertical="10dp">
-
-            <EditText
-                android:id="@+id/etPiecePerCartoon"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="number"
-                />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <Spinner
-            android:id="@+id/spinnerType"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:padding="15dp"
-            android:spinnerMode="dialog"
-            android:layout_marginHorizontal="10dp"
-            android:layout_marginVertical="10dp"/>
-        <com.google.android.material.textview.MaterialTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingVertical="15dp"
-            android:text="Add images : "
-            android:textColor="@color/black"
-            android:textSize="15sp"
-            android:textStyle="normal"
-            android:gravity="start"
-            android:layout_gravity="start"
-            android:layout_marginHorizontal="10dp"
-            android:paddingHorizontal="3dp"/>
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/imgToAdd"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/white_bg_button"
-            android:paddingVertical="5dp"
-            android:text="+"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            android:textStyle="normal"
+            android:layout_centerInParent="true"
             android:gravity="center"
-            android:layout_gravity="start"
-            android:layout_marginHorizontal="10dp"
-            android:layout_marginVertical="5dp"
-            android:paddingHorizontal="10dp"/>
+            android:orientation="vertical"
+            android:visibility="visible">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvProductsImage"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:scrollbars="horizontal"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:itemCount="7"
-            tools:listitem="@layout/item_product_image" />
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/text_input_layout_id"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginVertical="10dp"
+                android:hint="Add product id">
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/btnAddProductToDatabase"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/white_bg_button"
-            android:paddingVertical="15dp"
-            android:text="ADD"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            android:textStyle="normal"
-            android:gravity="center"
-            android:layout_gravity="center"
-            android:layout_marginHorizontal="10dp"
-            android:layout_marginVertical="10dp"
-            android:paddingHorizontal="10dp"/>
+                <EditText
+                    android:id="@+id/etProductId"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number" />
 
-    </LinearLayout>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/text_input_layout_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginVertical="10dp"
+                android:hint="Add product name">
+
+                <EditText
+                    android:id="@+id/etProductName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/text_input_layout_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginVertical="10dp"
+                android:hint="Add product description">
+
+                <EditText
+                    android:id="@+id/etProductDesc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textMultiLine"
+                    android:overScrollMode="always"
+                    android:scrollbarStyle="insideInset"
+                    android:scrollbars="vertical"
+                    android:text="" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/text_input_layout_stock"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginVertical="10dp"
+                android:hint="Add product available stock">
+
+                <EditText
+                    android:id="@+id/etProductStock"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/text_input_layout_price"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginVertical="10dp"
+                android:hint="Add product price">
+
+                <EditText
+                    android:id="@+id/etPrice"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/text_input_layout_cartoon"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginVertical="10dp"
+                android:hint="Add Pieces per cartoon">
+
+                <EditText
+                    android:id="@+id/etPiecePerCartoon"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Spinner
+                android:id="@+id/spinnerType"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginVertical="10dp"
+                android:layout_weight="1"
+                android:padding="15dp"
+                android:spinnerMode="dialog" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_marginHorizontal="10dp"
+                android:gravity="start"
+                android:paddingHorizontal="3dp"
+                android:paddingVertical="15dp"
+                android:text="Add images : "
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                android:textStyle="normal" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/imgToAdd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginVertical="5dp"
+                android:background="@drawable/white_bg_button"
+                android:gravity="center"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="5dp"
+                android:text="+"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="normal" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvProductsImage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:scrollbars="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:itemCount="7"
+                tools:listitem="@layout/item_product_image" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/btnAddProductToDatabase"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginVertical="10dp"
+                android:background="@drawable/white_bg_button"
+                android:gravity="center"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="15dp"
+                android:text="ADD"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="normal" />
+
+        </LinearLayout>
     </ScrollView>
 </RelativeLayout>

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".activity.ShowAllFeedbackActivity">
+    tools:context=".activity.ViewAllProductActivity">
 
     <TextView
         android:id="@+id/tvPageTitle"
@@ -22,18 +22,19 @@
         android:textStyle="normal" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvFeedback"
+        android:id="@+id/rvViewAllProduct"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="visible" />
+        android:visibility="visible"
+        android:layout_marginHorizontal="10dp"/>
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/txtNoFeedback"
+        android:id="@+id/txtNoProduct"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center|center_horizontal|center_vertical"
         android:gravity="center_vertical|center_horizontal"
-        android:text="@string/txt_no_feedback_found"
+        android:text="@string/txt_no_product_found"
         android:textColor="@color/black"
         android:textSize="18sp"
         android:textStyle="normal"

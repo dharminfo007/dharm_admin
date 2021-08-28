@@ -7,8 +7,8 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
         android:debuggable="false"
+        android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:largeHeap="true"
         android:requestLegacyExternalStorage="true"
@@ -16,7 +16,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DharmAdmin"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activity.AddNewSaleProductActivity"></activity>
+        <activity android:name=".activity.ViewAllProductActivity"></activity>
+        <activity android:name=".activity.AddNewVideoActivity" />
+        <activity android:name=".activity.AddNewSaleProductActivity" />
         <activity android:name=".activity.AddNewCoupansActivity" />
         <activity android:name=".activity.AddNewBannerActivity" />
         <activity android:name=".activity.ShowAllUsersActivity" />

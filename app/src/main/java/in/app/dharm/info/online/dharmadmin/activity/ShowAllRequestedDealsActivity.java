@@ -4,12 +4,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -18,14 +16,10 @@ import com.google.android.material.textview.MaterialTextView;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-
 import java.util.ArrayList;
-
 import in.app.dharm.info.online.dharmadmin.R;
 import in.app.dharm.info.online.dharmadmin.adapter.DealListAdapter;
-import in.app.dharm.info.online.dharmadmin.adapter.UserListAdapter;
 import in.app.dharm.info.online.dharmadmin.model.DealListPojo;
-import in.app.dharm.info.online.dharmadmin.model.UserList;
 import in.app.dharm.info.online.dharmadmin.util.DataProcessor;
 
 public class ShowAllRequestedDealsActivity extends AppCompatActivity {
@@ -122,15 +116,14 @@ public class ShowAllRequestedDealsActivity extends AppCompatActivity {
         });
 
     }
+
     public void updateDealStatus(int position, String document){
 
         db.collection("deallist").document(document).update("status", "accepted")
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
-                        listAdapter.notifyItemChanged(position);
-                        listAdapter.notifyDataSetChanged();
-                        listAdapter.notifyItemChanged(position);
+                        initProductDataAvailability();
                     }
                 }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -140,6 +133,7 @@ public class ShowAllRequestedDealsActivity extends AppCompatActivity {
         });
 
     }
+
     private void checkDealList() {
         if (productArrayList.size() > 0) {
             txtNoDataFound.setVisibility(View.GONE);

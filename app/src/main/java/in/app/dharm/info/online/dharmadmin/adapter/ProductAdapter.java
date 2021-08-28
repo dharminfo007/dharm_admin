@@ -64,11 +64,13 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ContactH
         if(product.getOrder_status().equals("true")){
             holder.tvCancelOrder.setClickable(false);
             holder.tvCancelOrder.setEnabled(false);
+            holder.tvCancelOrder.setVisibility(View.GONE);
             holder.tvAcceptOrder.setClickable(false);
             holder.tvAcceptOrder.setEnabled(false);
         }else {
             holder.tvCancelOrder.setClickable(true);
             holder.tvCancelOrder.setEnabled(true);
+            holder.tvCancelOrder.setVisibility(View.VISIBLE);
             holder.tvAcceptOrder.setClickable(true);
             holder.tvAcceptOrder.setEnabled(true);
         }
@@ -94,36 +96,18 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ContactH
             }
         });
 
-//        holder.imgProduct.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intentImage = new Intent(mContext, ImageDetailsActivity.class);
-//                intentImage.putExtra("imageList", productList.get(position).getListProductImages());
-//                mContext.startActivity(intentImage);
-//            }
-//        });
-
-        // You can set click listners to indvidual items in the viewholder here
-        // make sure you pass down the listner or make the Data members of the viewHolder public
-
     }
 
     // This is your ViewHolder class that helps to populate data to the view
     public class ContactHolder extends RecyclerView.ViewHolder {
 
-//        private TextView tvTitle, tvCartoon, tvStock, tvPrice, tvUserName, tvOrderId;
         private TextView tvUserName, tvOrderId, tvAcceptOrder, tvCancelOrder;
-//        CardView cardProducts;
         ImageView imgProduct;
         RecyclerView rvProductItems;
 
         public ContactHolder(View itemView) {
             super(itemView);
 
-//            tvTitle = itemView.findViewById(R.id.tvTitle);
-//            tvCartoon = itemView.findViewById(R.id.tvCartoon);
-//            tvStock = itemView.findViewById(R.id.tvStock);
-//            tvPrice = itemView.findViewById(R.id.tvPrice);
             tvUserName = itemView.findViewById(R.id.tvUserName);
             imgProduct = itemView.findViewById(R.id.imgProduct);
             tvOrderId = itemView.findViewById(R.id.tvOrderId);
@@ -133,28 +117,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ContactH
 
         }
 
-//        public void setProductTitle(String title) {
-//            tvTitle.setText(title);
-//        }
-
-//        public void setProductDesc(String desc) {
-//            tvDesc.setText(desc);
-//        }
-
-//        public void setProductCartoon(String cartoon) {
-//            tvCartoon.setText(cartoon);
-//        }
-//
-//        public void setProductStock(String stock) {
-//            tvStock.setText(stock);
-//        }
-//
-//        public void setProductPrice(String price) {
-//            tvPrice.setText(price);
-//        }
-//        public void setProductOfferDisc(String offerDisc) {
-//            tvOfferDisc.setText(offerDisc);
-//        }
     }
 
     public void updateList(ArrayList<OrderListPojo> list) {

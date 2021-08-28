@@ -87,6 +87,10 @@ public class AddNewSaleProductActivity extends AppCompatActivity implements View
         imgToAdd.setOnClickListener(this);
         btnAddProductToDatabase.setOnClickListener(this);
 
+        mArrayUri = new ArrayList<>();
+        imagesEncodedList = new ArrayList<>();
+
+        rvProducts = findViewById(R.id.rvProductsImage);
     }
 
 
@@ -100,7 +104,7 @@ public class AddNewSaleProductActivity extends AppCompatActivity implements View
                     Intent intent = new Intent();
                     intent.setType("image/*");
 //                    intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
-//                    intent.setAction(Intent.ACTION_GET_CONTENT);
+                    intent.setAction(Intent.ACTION_GET_CONTENT);
                     startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_MULTIPLE);
                 }
                 break;
@@ -115,7 +119,7 @@ public class AddNewSaleProductActivity extends AppCompatActivity implements View
 
                         StorageReference stRef = storage
                                 .getReference(
-                                        "image_sale_p"+"_"+i);
+                                        "image_sale_p"+"_"+i+1);
 
                         stRef.putFile(mArrayUri.get(i)).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                             @Override
@@ -175,20 +179,15 @@ public class AddNewSaleProductActivity extends AppCompatActivity implements View
                             @Override
                             public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
                                 Log.w("OnComplete", "adding image");
-//                            uploadImageUrls.add(task.getResult().getStorage().getPath());
+                                Toast.makeText(AddNewSaleProductActivity.this, "Sale image uploaded successfully..", Toast.LENGTH_LONG).show();
                             }
                         }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
                             @Override
                             public void onProgress(@NonNull @NotNull UploadTask.TaskSnapshot snapshot) {
-//                    progressDialog.dismiss();
                             }
                         });
 
                     }
-                    Toast.makeText(this, "You haven't picked Image", Toast.LENGTH_LONG).show();
-
-
-
                 break;
 
             default:
@@ -221,6 +220,10 @@ public class AddNewSaleProductActivity extends AppCompatActivity implements View
                     imagesEncodedList.add(imageEncoded);
                     cursor.close();
 
+                    listAdapter = new ProductImageAdapter(mArrayUri, AddNewSaleProductActivity.this);
+                    rvProducts.setAdapter(listAdapter);
+                    listAdapter.notifyDataSetChanged();
+
                 } else {                              //on multiple image selected
                     if (data.getClipData() != null) {
                         ClipData mClipData = data.getClipData();
@@ -243,6 +246,8 @@ public class AddNewSaleProductActivity extends AppCompatActivity implements View
 
                         }
                         Log.v("MainActivity", "Selected Images" + mArrayUri.size());
+                        listAdapter = new ProductImageAdapter(mArrayUri, AddNewSaleProductActivity.this);
+                        rvProducts.setAdapter(listAdapter);
                         listAdapter.notifyDataSetChanged();
                     }
                 }
